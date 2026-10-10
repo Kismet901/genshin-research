@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>提瓦特纪行 · 原神资讯站</title>
+<meta name="description" content="原神实时资讯、角色图鉴、玩家评价与游戏故事，一站式提瓦特大陆资讯站。" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="topbar" id="topbar">
+  <a class="brand" href="#" data-view="home">
+    <span class="brand-mark" aria-hidden="true"></span>
+    <span class="brand-text">提瓦特纪行</span>
+    <span class="brand-sub">Teyvat Chronicle</span>
+  </a>
+
+  <nav class="nav" aria-label="主导航">
+    <a href="#" data-view="home" class="nav-link is-active">首页</a>
+    <a href="#" data-view="news" class="nav-link">新闻</a>
+    <a href="#" data-view="chars" class="nav-link">角色</a>
+    <a href="#" data-view="reviews" class="nav-link">玩家评价</a>
+    <a href="#" data-view="story" class="nav-link">游戏故事</a>
+  </nav>
+
+  <div class="search" id="search">
+    <svg class="search-ico" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 20l-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    <input type="text" id="search-input" placeholder="搜索角色 / 新闻 / 活动 / 故事…" autocomplete="off" />
+    <span class="search-kbd">/</span>
+    <div class="search-drop" id="search-drop" hidden></div>
+  </div>
+
+  <div class="topbar-right">
+    <div class="live-pill" id="live-pill" title="数据实时更新状态">
+      <span class="live-dot"></span>
+      <span id="live-text">实时更新中</span>
+    </div>
+    <button class="icon-btn" id="refresh-btn" title="刷新数据" aria-label="刷新数据">
+      <svg viewBox="0 0 24 24" width="18" height="18"><path d="M21 12a9 9 0 1 1-2.64-6.36M21 3v6h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============ HOME ============ -->
+  <section class="view is-active" id="view-home">
+    <div class="hero">
+      <div class="hero-bg" id="hero-bg"></div>
+      <div class="hero-veil"></div>
+      <div class="hero-inner">
+        <div class="hero-kicker">OPEN-WORLD ARPG · miHoYo</div>
+        <h1 class="hero-title">提瓦特纪行</h1>
+        <p class="hero-tag" id="hero-tag">在提瓦特大陆，每一次相遇都通向一场盛大的冒险</p>
+        <div class="hero-version" id="hero-version"></div>
+        <div class="hero-actions">
+          <button class="btn btn-gold" data-view="news">浏览最新资讯</button>
+          <button class="btn btn-ghost" data-view="chars">探索角色图鉴</button>
+        </div>
+      </div>
+      <div class="hero-scroll" aria-hidden="true"><span></span></div>
+    </div>
+
+    <div class="section">
+      <div class="container">
+        <div class="stat-strip" id="stat-strip"></div>
+
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">LATEST</div>
+            <h2 class="section-title">最新动态</h2>
+          </div>
+          <a class="more-link" href="#" data-view="news">查看全部 <span>→</span></a>
+        </div>
+        <div class="news-grid" id="home-news"></div>
+      </div>
+    </div>
+
+    <div class="section section-tint">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">CHARACTERS</div>
+            <h2 class="section-title">角色速览</h2>
+          </div>
+          <a class="more-link" href="#" data-view="chars">进入图鉴 <span>→</span></a>
+        </div>
+        <div class="featured-chars" id="featured-chars"></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">EVENTS</div>
+            <h2 class="section-title">版本活动</h2>
+          </div>
+        </div>
+        <div class="event-strip" id="event-strip"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ NEWS ============ -->
+  <section class="view" id="view-news">
+    <div class="page-head">
+      <div class="container">
+        <div class="eyebrow">NEWS &amp; NOTICE</div>
+        <h1 class="page-title">新闻公告</h1>
+        <p class="page-desc">汇聚官方资讯、版本更新与活动公告，数据实时同步自原神官网。</p>
+        <div class="filter-tabs" id="news-tabs">
+          <button class="filter-tab is-active" data-filter="all">全部</button>
+          <button class="filter-tab" data-filter="资讯">资讯</button>
+          <button class="filter-tab" data-filter="公告">公告</button>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="news-grid news-grid-full" id="news-grid"></div>
+      <div class="empty-state" id="news-empty" hidden>没有找到相关资讯</div>
+    </div>
+  </section>
+
+  <!-- ============ CHARACTERS ============ -->
+  <section class="view" id="view-chars">
+    <div class="page-head">
+      <div class="container">
+        <div class="eyebrow">CHARACTER ARCHIVE</div>
+        <h1 class="page-title">角色图鉴</h1>
+        <p class="page-desc">以七国为序，收录提瓦特大陆的旅行者与伙伴。</p>
+        <div class="region-tabs" id="region-tabs"></div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="char-grid" id="char-grid"></div>
+    </div>
+  </section>
+
+  <!-- ============ REVIEWS ============ -->
+  <section class="view" id="view-reviews">
+    <div class="page-head">
+      <div class="container">
+        <div class="eyebrow">PLAYER VOICES</div>
+        <h1 class="page-title">玩家评价</h1>
+        <p class="page-desc">综合各大平台与社区口碑，呈现玩家对《原神》最真实的褒与贬。</p>
+      </div>
+    </div>
+    <div class="container">
+      <div class="review-summary" id="review-summary"></div>
+      <div class="review-grid" id="review-grid"></div>
+
+      <div class="review-compose" id="review-compose">
+        <div class="compose-head">
+          <div>
+            <div class="eyebrow">YOUR VOICE</div>
+            <h3 class="compose-title">分享你的评价</h3>
+          </div>
+        </div>
+        <form id="review-form">
+          <div class="field">
+            <label for="review-nick">昵称（可选）</label>
+            <input type="text" id="review-nick" maxlength="20" placeholder="旅行者" />
+          </div>
+          <div class="field field-stars">
+            <label>评分</label>
+            <div class="star-input" id="star-input"></div>
+          </div>
+          <div class="field">
+            <label for="review-text">评价内容</label>
+            <textarea id="review-text" rows="4" maxlength="300" placeholder="聊聊你对这款游戏的感受……"></textarea>
+          </div>
+          <button type="submit" class="btn btn-gold">提交评价</button>
+          <p class="compose-note">评价仅保存在本地浏览器中，作为你的个人记录。</p>
+        </form>
+        <div class="local-reviews" id="local-reviews"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ STORY ============ -->
+  <section class="view" id="view-story">
+    <div class="page-head">
+      <div class="container">
+        <div class="eyebrow">WORLD &amp; LORE</div>
+        <h1 class="page-title">游戏故事</h1>
+        <p class="page-desc">从七国到深渊，从诸神到天理，读懂提瓦特大陆的宏大叙事。</p>
+      </div>
+    </div>
+    <div class="container">
+      <div class="worldview" id="worldview"></div>
+      <div class="nations" id="nations"></div>
+      <div class="factions" id="factions"></div>
+    </div>
+  </section>
+
+  <!-- ============ SEARCH ============ -->
+  <section class="view" id="view-search">
+    <div class="page-head">
+      <div class="container">
+        <div class="eyebrow">SEARCH</div>
+        <h1 class="page-title">搜索结果</h1>
+        <p class="page-desc" id="search-query-desc"></p>
+      </div>
+    </div>
+    <div class="container"><div id="search-results"></div></div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <div>
+      <div class="footer-brand">提瓦特纪行</div>
+      <p class="footer-note">本站为粉丝自制的《原神》资讯聚合站，数据与图片来源于原神官方网站及公开社区，版权归米哈游 miHoYo 所有。</p>
+    </div>
+    <div class="footer-meta">
+      <span id="footer-updated"></span>
+      <a href="https://ys.mihoyo.com/main/" target="_blank" rel="noopener">原神官网 ↗</a>
+    </div>
+  </div>
+</footer>
+
+<!-- modal -->
+<div class="modal" id="modal" aria-hidden="true">
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-panel" id="modal-panel"></div>
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
